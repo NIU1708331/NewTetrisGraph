@@ -1,6 +1,6 @@
 #ifndef FIGURA_H
 #define FIGURA_H
-
+class Tauler;
 typedef enum
 {
     COLOR_NEGRE = 0,
@@ -39,9 +39,9 @@ typedef enum
 class Figura
 {
 public:
-    bool girar_figura(DireccioGir gir, int taula );
-    bool mov_figura(int dirX, int dirY);
-    bool mov_legal(DireccioGir gir, int dirX, int dirY);
+    void girar_figura(DireccioGir gir);
+    void mov_figura(int dirX, int dirY);
+    bool mov_legal(DireccioGir gir, int dirX, int dirY,Tauler* tauler);
 
     int getPixel(int x, int y) { return m_figura[x][y]; }
 

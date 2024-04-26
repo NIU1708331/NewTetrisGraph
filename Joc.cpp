@@ -3,7 +3,6 @@
 using namespace std;
 
 
-Tauler::Tauler() {}
 void Joc::inicialitza(const string& nomFitxer)
 {
 	
@@ -13,6 +12,10 @@ bool Joc::giraFigura(DireccioGir direccio)
 	return 1;
 }
 bool Joc::mouFigura(int dirX)
+{
+	return 1;
+}
+bool Joc::mouFigura(int dirX, int dirY)
 {
 	return 1;
 }

@@ -1,17 +1,29 @@
 #include "Tauler.h"
-/*
+
+Tauler::Tauler()
+{
+	for (int i = 0; i < MAX_COL; i++)
+	{
+		
+		for (int j = 0; j < MAX_FILA; j++)
+		{
+			m_taula[i][j] = 0;
+		}
+	}
+}
+
 void Tauler::fila_a_eliminar()
 {
 	bool trobat = false;
 	int i = MAX_FILA - 1,j = 0;
 	while (!trobat&&i>0)
 	{
-		while (Taula[i][j]!=0)
+		while (m_taula[i][j]!=0)
 		{
 			j++;
 			if (j==MAX_COL)
 			{	
-				filesFet++;
+				m_filesFet++;
 				trobat = true;
 				eliminar_fila(i,j);
 			}
@@ -26,7 +38,7 @@ void Tauler::eliminar_fila(int x,int y)//X=fila Y=col
 	//eliminar
 	for (int i = 0; i < MAX_COL; i++)
 	{
-		Taula[x][i] = 0;
+		m_taula[x][i] = 0;
 	}
 
 	//baixar taula
@@ -35,11 +47,10 @@ void Tauler::eliminar_fila(int x,int y)//X=fila Y=col
 		
 		for (int j = 0; j < MAX_COL; j++)
 		{
-			Taula[i][j] = Taula[i + 1][j];
+			m_taula[i][j] = m_taula[i + 1][j];
 		}
 	}
 	//comprovar de nou
 	fila_a_eliminar();
 
 }
-*/

@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include "Figura.h"
 using namespace std;
 
 #include <SDL.h>
@@ -832,40 +833,86 @@ int test_main()
 	return 0;
 }
 
+void globalConfigModul()
+{
+	string path;
+	cout << "Paste here the path of Global config .txt\nLet the space blank for default configuration";
+	getline(cin, path);//copyright Qiu,haocheng Daniel 2023-2024
+
+}
+
 int main() {
-	//test_main();
-	SDL_Init(SDL_INIT_EVERYTHING);
-	SDL_Window* win = SDL_CreateWindow("tetris", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
-	SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_PRESENTVSYNC);
-	SDL_Delay(2000);
-	SDL_Event e;
-	bool running = true;
-	SDL_SetRenderDrawColor(ren, 0,255,100,255);
-	while (running) {
-		while (SDL_PollEvent(&e)) {
-			switch (e.type) {
-			case SDL_QUIT:
-				running = false;
-				break;
+	bool testMode = false;
+	if (testMode)
+	{
+		test_main();
+	}
+	else
+	{
+		//globalConfigModul();
+		SDL_Init(SDL_INIT_EVERYTHING);
+		SDL_Window* win = SDL_CreateWindow("tetris", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
+		SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_PRESENTVSYNC);
+		Joc joc;
+		SDL_Event e;
+		bool running = true;
+		SDL_SetRenderDrawColor(ren, 0, 255, 100, 255);
+		while (running) {
+			while (SDL_PollEvent(&e)) {
+				switch (e.type) {
+				case SDL_QUIT:
+					running = false;
+					break;
+				case SDL_KEYDOWN:
+					switch (e.key.keysym.scancode) {
+					case SDL_SCANCODE_D:
+						joc.mouFigura(1,0);
+						break;
+					}
+				}
 			}
+			SDL_SetRenderDrawColor(ren, 0, 255, 100, 255);
+			SDL_RenderClear(ren);
+
+			Tauler* tauler = joc.getTauler();
+			for (int y = 0; y < MAX_FILA; ++y) {
+				for (int x = 0; x < MAX_COL; ++x) {
+					SDL_Rect rect;
+					rect.x = x * 64;
+					rect.y = y * 64;
+					rect.w = 64;
+					rect.h = 64;
+					SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
+					SDL_RenderFillRect(ren, &rect);
+
+					rect.x = x * 64 + 2;
+					rect.y = y * 64 + 2;
+					rect.w = 64 - 4;
+					rect.h = 64 - 4;
+					SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
+					SDL_RenderFillRect(ren, &rect);
+
+					int color = tauler->getPixel(y, x);
+					if (color != COLOR_NEGRE) {
+						rect.x = x * 64;
+						rect.y = y * 64;
+						rect.w = 64;
+						rect.h = 64;
+						SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
+						SDL_RenderFillRect(ren, &rect);
+
+
+					}
+				}
+			}
+
+
+			SDL_RenderPresent(ren);
 		}
 
-		SDL_SetRenderDrawColor(ren, 0, 255, 100, 255);
-		SDL_RenderClear(ren);
-
-		SDL_SetRenderDrawColor(ren, 255, 255, 100, 255);
-		SDL_Rect rect;
-		rect.x = 100;
-		rect.y = 100;
-		rect.w = 200;
-		rect.h = 200;
-		SDL_RenderFillRect(ren, &rect);
-
-		SDL_RenderPresent(ren);
+		SDL_DestroyRenderer(ren);
+		SDL_DestroyWindow(win);
+		SDL_Quit();
 	}
-
-	SDL_DestroyRenderer(ren);
-	SDL_DestroyWindow(win);
-	SDL_Quit();
 	return 0;
 }
