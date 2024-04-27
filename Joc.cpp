@@ -15,16 +15,18 @@ bool Joc::mouFigura(int dirX)
 {
 	return 1;
 }
-bool Joc::mouFigura(int dirX, int dirY)
-{
-	return 1;
-}
+
 int Joc::baixaFigura()
 {
 	return 1;
 }
+
 void Joc::escriuTauler(const string& nomFitxer)
 {
 
 }
 
+bool Joc::mouFigura(int dirX, int dirY)
+{
+	return 1;
+}

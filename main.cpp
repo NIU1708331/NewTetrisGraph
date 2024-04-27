@@ -839,10 +839,11 @@ void globalConfigModul()
 	cout << "Paste here the path of Global config .txt\nLet the space blank for default configuration";
 	getline(cin, path);//copyright Qiu,haocheng Daniel 2023-2024
 
+
 }
 
 int main() {
-	bool testMode = false;
+	bool testMode = true;
 	if (testMode)
 	{
 		test_main();

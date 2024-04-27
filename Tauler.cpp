@@ -12,6 +12,17 @@ Tauler::Tauler()
 	}
 }
 
+void Tauler::setTaula(int taula[MAX_FILA][MAX_COL])
+{
+	for (int i = 0; i < MAX_FILA; i++)
+	{
+		for (int j = 0; j < MAX_COL; j++)
+		{
+			m_taula[i][j] = taula[i][j];
+		}
+	}
+}
+
 void Tauler::fila_a_eliminar()
 {
 	bool trobat = false;
@@ -47,10 +58,11 @@ void Tauler::eliminar_fila(int x,int y)//X=fila Y=col
 		
 		for (int j = 0; j < MAX_COL; j++)
 		{
-			m_taula[i][j] = m_taula[i + 1][j];
+			m_taula[i][j] = m_taula[i +1][j];
 		}
 	}
 	//comprovar de nou
+	m_filesFet++;
 	fila_a_eliminar();
 
 }

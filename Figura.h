@@ -44,12 +44,16 @@ public:
     bool mov_legal(DireccioGir gir, int dirX, int dirY,Tauler* tauler);
 
     int getPixel(int x, int y) { return m_figura[x][y]; }
+    void setFigura(int figura[MAX_AMPLADA][MAX_ALCADA]);
+    void setDir(int dir) { m_dir = dir; }
+    void setPosicio(int x, int y) { m_x = x; m_y = y; }
+
 
 
 private:
     int m_figura[MAX_AMPLADA][MAX_ALCADA];
     TipusFigura m_type;
-    DireccioGir m_direccio;
+    int m_dir;
     int m_x, m_y;
 };
 

@@ -1,6 +1,16 @@
 #include "Figura.h"
 #include "Tauler.h"
 
+void Figura::setFigura(int figura[MAX_AMPLADA][MAX_ALCADA])
+{
+	for (int i = 0; i < MAX_AMPLADA; i++)
+	{
+		for (int j = 0; j < MAX_ALCADA; j++)
+		{
+			m_figura[i][j] = figura[i][j];
+		}
+	}
+}
 
 void Figura::girar_figura(DireccioGir gir )
 {
@@ -55,16 +65,22 @@ bool Figura::mov_legal(DireccioGir gir, int dirX, int dirY, Tauler* tauler)
 	girar_figura(gir);
 	while (resultat&&i<MAX_ALCADA)
 	{
-		for (int j = 0; i < MAX_AMPLADA; i++)
+		for (int j = 0; i < MAX_AMPLADA; i++)//i->Columna, j->Fila
 		{
 
 			if (getPixel(i,j) != COLOR_NEGRE && tauler->getPixel(i + m_y,j + m_x) != COLOR_NEGRE)
 			{
-
+				resultat = false;
 			}
 		}
+		i++;
 	}
 
+	if (!resultat)
+	{
+		girar_figura(gir);
+	}
+	
 	
 
 	return resultat;
