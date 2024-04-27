@@ -41,7 +41,7 @@ class Figura
 public:
     void girar_figura(DireccioGir gir);
     void mov_figura(int dirX, int dirY);
-    bool mov_legal(DireccioGir gir, int dirX, int dirY,Tauler* tauler);
+    bool gir_legal(DireccioGir gir,Tauler* tauler);
 
     int getPixel(int x, int y) { return m_figura[x][y]; }
     void setFigura(int figura[MAX_AMPLADA][MAX_ALCADA]);
