@@ -2,7 +2,13 @@
 #include <iostream>
 using namespace std;
 
-
+Joc::Joc()
+{
+    tipusFigura = 0;
+    fila = 0; 
+    columna = 0; 
+    tipusGir = 0;
+}
 void Joc::inicialitza(const string& nomFitxer)
 {
     ifstream fitxerInit;
