@@ -66,3 +66,16 @@ void Tauler::eliminar_fila(int x,int y)//X=fila Y=col
 	fila_a_eliminar();
 
 }
+
+std::ifstream& operator>>(std::ifstream& is, Tauler& tauler) {
+
+	for (int i = 0; i < MAX_FILA; ++i)
+	{
+		for (int j = 0; j < MAX_COL; ++j)
+		{
+			is >> tauler.m_taula[i][j];
+		}
+	}
+
+	return is;
+}
