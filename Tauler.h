@@ -13,7 +13,7 @@ public:
 	int getPixel(int i, int j) { return m_taula[i][j]; }
 	int files_fet() { return m_filesFet; }
 	void setTaula(int taula[MAX_FILA][MAX_COL]);
-
+	friend ifstream& operator>>(ifstream& is, Tauler& tauler);
 private:
 	int m_taula[MAX_FILA][MAX_COL];
 	int m_filesFet=0;
