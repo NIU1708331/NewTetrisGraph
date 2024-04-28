@@ -5,28 +5,52 @@ using namespace std;
 
 void Joc::inicialitza(const string& nomFitxer)
 {
-	ifstream fitxerInit;
-	fitxerInit.open(nomFitxer);
-	if (fitxerInit.is_open())
-	{
+    ifstream fitxerInit;
+    ifstream fitxerInit(nomFitxer); 
 
+    if (fitxerInit.is_open())
+    {
+        int tipusFigura, fila, columna, tipusGir;
         fitxerInit >> tipusFigura >> fila >> columna >> tipusGir;
 
-        m_figura.setTipus(static_cast<TipusFigura>(tipusFigura));
+        TipusFigura tipus;
+        switch (tipusFigura) {
+        case 0:
+            tipus = NO_FIGURA;
+            break;
+        case 1:
+            tipus = FIGURA_O;
+            break;
+        case 2:
+            tipus = FIGURA_I;
+            break;
+        case 3:
+            tipus = FIGURA_T;
+            break;
+        case 4:
+            tipus = FIGURA_L;
+            break;
+        case 5:
+            tipus = FIGURA_J;
+            break;
+        case 6:
+            tipus = FIGURA_Z;
+            break;
+        case 7:
+            tipus = FIGURA_S;
+            break;
+        default:
+            tipus = NO_FIGURA;
+            break;
+        }
+
+        m_figura.setTipus(tipus);
         m_figura.setPosicio(columna, fila);
         m_figura.setDir(tipusGir);
 
-        int taula[MAX_FILA][MAX_COL];
-        for (int i = 0; i < MAX_FILA; ++i)
-        {
-            for (int j = 0; j < MAX_COL; ++j)
-            {
-                fitxerInit >> taula[i][j];
-            }
-        }
-        m_tauler.setTaula(taula);
+        fitxerInit >> m_tauler;
         fitxerInit.close();
-	}
+    }
 }
 
 bool Joc::giraFigura(DireccioGir direccio) 
