@@ -20,6 +20,7 @@ public:
 private:
 	Figura m_figura;
 	Tauler m_tauler;
+	int tipusFigura, fila, columna, tipusGir;
 };
 
 #endif
