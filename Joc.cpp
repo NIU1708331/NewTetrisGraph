@@ -69,7 +69,21 @@ int Joc::baixaFigura()
 
 void Joc::escriuTauler(const string& nomFitxer)
 {
+    ofstream fitxerTauler;
+    fitxerTauler.open(nomFitxer);
 
+    if (fitxerTauler.is_open())
+    {
+        for (int i = 0; i < MAX_FILA; ++i)
+        {
+            for (int j = 0; j < MAX_COL; ++j)
+            {
+                fitxerTauler << m_tauler.getPixel(i, j);
+            }
+            fitxerTauler << endl; 
+        }
+        fitxerTauler.close();
+    }
 }
 
 bool Joc::mouFigura(int dirX, int dirY)
