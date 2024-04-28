@@ -16,7 +16,6 @@ void Joc::inicialitza(const string& nomFitxer)
 
     if (fitxerInit.is_open())
     {
-        int tipusFigura, fila, columna, tipusGir;
         fitxerInit >> tipusFigura >> fila >> columna >> tipusGir;
 
         TipusFigura tipus;
