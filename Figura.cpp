@@ -1,6 +1,15 @@
 #include "Figura.h"
 #include "Tauler.h"
 
+void Figura::getMax()
+{
+	if (m_type=FIGURA_I)
+	{
+		max_alcada = 4;
+		max_amplada = 4;
+	}
+}
+
 void Figura::setFigura(int figura[MAX_AMPLADA][MAX_ALCADA])
 {
 	for (int i = 0; i < MAX_AMPLADA; i++)
@@ -14,19 +23,6 @@ void Figura::setFigura(int figura[MAX_AMPLADA][MAX_ALCADA])
 
 void Figura::girar_figura(DireccioGir gir )
 {
-
-	int max_alcada, max_amplada;
-	if (m_type=FIGURA_I)
-	{
-		max_alcada = 4;
-		max_amplada = 4;
-	}
-	else
-	{
-		max_alcada = 3;
-		max_amplada = 3;
-	}
-
 	int matriu_tmp[MAX_ALCADA][MAX_AMPLADA];
 
 	for (int i = 0; i < max_alcada; i++)
@@ -101,4 +97,35 @@ bool Figura::gir_legal(DireccioGir gir, Tauler* tauler)
 	}
 
 	return resultat;
+}
+
+bool Figura::mov_legal(int dirX, int dirY, Tauler* tauler)
+{
+	bool resultat = true;
+	//mov en X
+	if (dirX==1)//derehca
+	{
+		
+		for (int i = 0; i < max_alcada; i++)
+		{
+			
+			if ((m_x+max_amplada==MAX_COL)&&m_figura[i][max_alcada]==COLOR_NEGRE)
+			{
+				resultat = false;
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < max_alcada; i++)
+		{
+
+			if ((m_x == 0) && m_figura[i][0] == COLOR_NEGRE)
+			{
+				resultat = false;
+			}
+		}
+	}
+	return resultat;
+	//mov en Y
 }

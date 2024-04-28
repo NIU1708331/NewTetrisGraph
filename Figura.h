@@ -42,19 +42,23 @@ public:
     void girar_figura(DireccioGir gir);
     void mov_figura(int dirX, int dirY);
     bool gir_legal(DireccioGir gir,Tauler* tauler);
+    bool mov_legal(int dirX, int dirY, Tauler* tauler);
 
     int getPixel(int x, int y) { return m_figura[x][y]; }
     void setFigura(int figura[MAX_AMPLADA][MAX_ALCADA]);
     void setDir(int dir) { m_dir = dir; }
     void setPosicio(int x, int y) { m_x = x; m_y = y; }
+    
 
 
 
 private:
+    void getMax();
     int m_figura[MAX_AMPLADA][MAX_ALCADA];
     TipusFigura m_type;
     int m_dir;
     int m_x, m_y;
+    int max_alcada=3, max_amplada=3;
 };
 
 
