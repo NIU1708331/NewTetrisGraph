@@ -36,6 +36,45 @@ typedef enum
     GIR_ANTI_HORARI
 } DireccioGir;
 
+namespace FiguraMatrices 
+{
+    const int FIGURA_O[2][2] = {
+        {1,1},
+        {1,1}
+    };
+    const int FIGURA_I[4][4] = {
+        {0,0,0,0},
+        {2,2,2,2},
+        {0,0,0,0},
+        {0,0,0,0}
+    };
+    const int FIGURA_T[3][3] = {
+        {0,3,0},
+        {3,3,3},
+        {0,0,0}
+    };
+    const int FIGURA_L[3][3] = {
+        {0,0,4},
+        {4,4,4},
+        {0,0,0}
+    };
+    const int FIGURA_J[3][3] = {
+        {5,0,0},
+        {5,5,5},
+        {0,0,0}
+    };
+    const int FIGURA_Z[3][3] = {
+        {6,6,0},
+        {0,6,6},
+        {0,0,0}
+    };
+    const int FIGURA_S[3][3] = {
+        {0,7,7},
+        {7,7,0},
+        {0,0,0}
+    };
+}
+
 class Figura
 {
 public:
