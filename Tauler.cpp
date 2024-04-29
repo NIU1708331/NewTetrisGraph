@@ -58,7 +58,7 @@ void Tauler::eliminar_fila(int x,int y)//X=fila Y=col
 		
 		for (int j = 0; j < MAX_COL; j++)
 		{
-			m_taula[i][j] = m_taula[i +1][j];
+			m_taula[i][j] = m_taula[i + 1][j];
 		}
 	}
 	//comprovar de nou

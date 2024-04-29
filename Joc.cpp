@@ -1,6 +1,6 @@
 #include "Joc.h"
 #include <iostream>
-#include<ifstream>
+#include <fstream>
 using namespace std;
 
 Joc::Joc()
@@ -12,8 +12,9 @@ Joc::Joc()
 }
 void Joc::inicialitza(const string& nomFitxer)
 {
-    ifstream fitxerInit;
     ifstream fitxerInit(nomFitxer); 
+
+    int c_x=-1, c_y=-1;
 
     if (fitxerInit.is_open())
     {
@@ -26,10 +27,12 @@ void Joc::inicialitza(const string& nomFitxer)
             break;
         case 1:
             tipus = FIGURA_O;
+            c_x = 0;
+            c_y = 0;
             break;
         case 2:
             tipus = FIGURA_I;
-            break;
+            c_x = -2;
         case 3:
             tipus = FIGURA_T;
             break;
@@ -51,8 +54,12 @@ void Joc::inicialitza(const string& nomFitxer)
         }
 
         m_figura.setTipus(tipus);
-        m_figura.setPosicio(columna, fila);
-        m_figura.setDir(tipusGir);
+        m_figura.setPosicio(columna+c_x, fila+c_y);
+
+        for (int i = 0; i < tipusGir; i++)
+        {
+            m_figura.girar_figura(GIR_HORARI);
+        }
 
         fitxerInit >> m_tauler;
         fitxerInit.close();
@@ -61,16 +68,26 @@ void Joc::inicialitza(const string& nomFitxer)
 
 bool Joc::giraFigura(DireccioGir direccio) 
 {
-	return 1;
+   return m_figura.gir_legal(direccio,&m_tauler);
 }
 bool Joc::mouFigura(int dirX)
 {
-	return 1;
+    bool resultat = m_figura.mov_legal(dirX,&m_tauler);
+    if (resultat)
+    {
+        m_figura.mov_figura(dirX, 0);
+    }
+    return resultat;
 }
 
 int Joc::baixaFigura()
 {
-	return 1;
+    while (m_figura.baixar(1 ,&m_tauler))
+    {
+
+    }
+    m_tauler.fila_a_eliminar();
+    return m_tauler.files_fet();
 }
 
 void Joc::escriuTauler(const string& nomFitxer)

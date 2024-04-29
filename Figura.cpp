@@ -23,6 +23,8 @@ void Figura::setFigura(int figura[MAX_AMPLADA][MAX_ALCADA])
 
 void Figura::girar_figura(DireccioGir gir )
 {
+	getMax();
+
 	int matriu_tmp[MAX_ALCADA][MAX_AMPLADA];
 
 	for (int i = 0; i < max_alcada; i++)
@@ -140,13 +142,12 @@ bool Figura::baixar(int dirY, Tauler* taula)
 		for (int j = 1; j <= max_alcada; j++)
 		{
 			
-			if (taula->getPixel(m_x+i,m_y+j)!=COLOR_NEGRE)
+			if (taula->getPixel(m_x+i,m_y+j)!=COLOR_NEGRE&&m_figura[i][j]!=COLOR_NEGRE)
 			{
 				resultat = false;
 			}
 		}
 
 	}
-
 	return resultat;
 }
