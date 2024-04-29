@@ -1,5 +1,6 @@
 #include "Joc.h"
 #include <iostream>
+#include<ifstream>
 using namespace std;
 
 Joc::Joc()

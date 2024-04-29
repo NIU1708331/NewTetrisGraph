@@ -99,7 +99,7 @@ bool Figura::gir_legal(DireccioGir gir, Tauler* tauler)
 	return resultat;
 }
 
-bool Figura::mov_legal(int dirX, int dirY, Tauler* tauler)
+bool Figura::mov_legal(int dirX, Tauler* tauler)
 {
 	bool resultat = true;
 	//mov en X
@@ -128,4 +128,25 @@ bool Figura::mov_legal(int dirX, int dirY, Tauler* tauler)
 	}
 	return resultat;
 	//mov en Y
+
+}
+
+bool Figura::baixar(int dirY, Tauler* taula)
+{
+	bool resultat=true;
+
+	for (int i = 1; i <= max_amplada; i++)
+	{
+		for (int j = 1; j <= max_alcada; j++)
+		{
+			
+			if (taula->getPixel(m_x+i,m_y+j)!=COLOR_NEGRE)
+			{
+				resultat = false;
+			}
+		}
+
+	}
+
+	return resultat;
 }
