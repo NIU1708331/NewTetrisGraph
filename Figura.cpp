@@ -1,16 +1,22 @@
 #include "Figura.h"
 #include "Tauler.h"
+#include<iostream>
 
 void Figura::getMax()
 {
-	if (m_type=FIGURA_I)
+	if (m_type==FIGURA_I)
 	{
 		max_alcada = 4;
 		max_amplada = 4;
 	}
+	else
+	{
+		max_alcada = 3;
+		max_amplada = 3;
+	}
 }
 
-void Figura::setFigura(int figura[MAX_AMPLADA][MAX_ALCADA])
+void Figura::setFigura(const int figura[MAX_AMPLADA][MAX_ALCADA])
 {
 	for (int i = 0; i < MAX_AMPLADA; i++)
 	{
@@ -23,7 +29,6 @@ void Figura::setFigura(int figura[MAX_AMPLADA][MAX_ALCADA])
 
 void Figura::girar_figura(DireccioGir gir )
 {
-	getMax();
 
 	int matriu_tmp[MAX_ALCADA][MAX_AMPLADA];
 
@@ -35,7 +40,7 @@ void Figura::girar_figura(DireccioGir gir )
 		}
 	}
 
-	if (gir==GIR_HORARI)
+	if (gir==GIR_ANTI_HORARI)
 	{
 		for (int i = 0; i < max_alcada; i++)
 		{
@@ -70,21 +75,29 @@ void Figura::mov_figura(int dirx, int dirY)
 bool Figura::gir_legal(DireccioGir gir, Tauler* tauler)
 {
 	bool resultat = true;
+	getMax();
 	int i = 0;
 	//gir legal
 	girar_figura(gir);
-	while (resultat&&i<MAX_ALCADA)
+	for (int i = 0; i < max_amplada; i++)
 	{
-		for (int j = 0; i < MAX_AMPLADA; i++)//i->Columna, j->Fila
+		for (int j = 0; j < max_alcada; j++)
 		{
 
-			if (getPixel(i,j) != COLOR_NEGRE && tauler->getPixel(i + m_y,j + m_x) != COLOR_NEGRE)
+			if (tauler->getPixel(m_y + i, m_x + j) != COLOR_NEGRE && m_figura[j][i] != COLOR_NEGRE)
 			{
 				resultat = false;
 			}
+			if (m_figura[i][j]!=COLOR_NEGRE&& (m_x < 0) || (m_x + j >= MAX_COL))
+			{
+				resultat = false;
+			}
+
 		}
-		i++;
+
 	}
+
+
 
 	if (!resultat)
 	{
@@ -104,14 +117,27 @@ bool Figura::gir_legal(DireccioGir gir, Tauler* tauler)
 bool Figura::mov_legal(int dirX, Tauler* tauler)
 {
 	bool resultat = true;
-	//mov en X
+
+	for (int i = 0; i < max_amplada; i++)
+	{
+		for (int j = 0; j < max_alcada; j++)
+		{
+
+			if (tauler->getPixel(m_y + i, m_x + j+dirX) != COLOR_NEGRE && m_figura[j][i] != COLOR_NEGRE)
+			{
+				resultat = false;
+			}
+		}
+
+	}
+
 	if (dirX==1)//derehca
 	{
 		
 		for (int i = 0; i < max_alcada; i++)
 		{
 			
-			if ((m_x+max_amplada==MAX_COL)&&m_figura[i][max_alcada]==COLOR_NEGRE)
+			if ((m_x+max_amplada>=MAX_COL)&&m_figura[(MAX_COL - m_x-1)][i] != COLOR_NEGRE)
 			{
 				resultat = false;
 			}
@@ -122,7 +148,7 @@ bool Figura::mov_legal(int dirX, Tauler* tauler)
 		for (int i = 0; i < max_alcada; i++)
 		{
 
-			if ((m_x == 0) && m_figura[i][0] == COLOR_NEGRE)
+			if ((m_x <= 0) && m_figura[m_x-0][i] != COLOR_NEGRE)
 			{
 				resultat = false;
 			}
@@ -130,6 +156,7 @@ bool Figura::mov_legal(int dirX, Tauler* tauler)
 	}
 	return resultat;
 	//mov en Y
+	
 
 }
 
@@ -137,12 +164,12 @@ bool Figura::baixar(int dirY, Tauler* taula)
 {
 	bool resultat=true;
 
-	for (int i = 1; i <= max_amplada; i++)
+	for (int i = 0; i < max_amplada; i++)
 	{
-		for (int j = 1; j <= max_alcada; j++)
+		for (int j = 0; j < max_alcada; j++)
 		{
 			
-			if (taula->getPixel(m_x+i,m_y+j)!=COLOR_NEGRE&&m_figura[i][j]!=COLOR_NEGRE)
+			if (taula->getPixel(m_y+i+1,m_x+j)!=COLOR_NEGRE&&m_figura[j][i]!=COLOR_NEGRE)
 			{
 				resultat = false;
 			}

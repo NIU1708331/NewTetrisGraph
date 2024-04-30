@@ -842,8 +842,22 @@ void globalConfigModul()
 
 }
 
+SDL_Color PALETTE[9] = {
+	SDL_Color{.r = 0,.g = 0,.b = 0,.a = 255},
+	SDL_Color{.r = 255,.g = 255,.b = 0,.a = 255},
+	SDL_Color{.r = 0,.g = 255,.b = 255,.a = 255},
+	SDL_Color{.r = 128,.g = 0,.b = 128,.a = 255},
+	SDL_Color{.r = 255,.g = 127,.b = 0,.a = 255},
+	SDL_Color{.r = 0,.g = 0,.b = 255,.a = 255},
+	SDL_Color{.r = 255,.g = 0,.b = 0,.a = 255},
+	SDL_Color{.r = 0,.g = 255,.b = 0,.a = 255},
+	SDL_Color{.r = 127,.g = 127,.b = 127,.a = 255},
+};
+
+inline SDL_Color paletteToRGB(int color) { return PALETTE[color]; }
+
 int main() {
-	bool testMode = true;
+	bool testMode = false;
 	if (testMode)
 	{
 		test_main();
@@ -855,21 +869,43 @@ int main() {
 		SDL_Window* win = SDL_CreateWindow("tetris", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
 		SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_PRESENTVSYNC);
 		Joc joc;
+
+		joc.inicialitza("./data/test_elimina_files_2.txt");
+
 		SDL_Event e;
 		bool running = true;
 		SDL_SetRenderDrawColor(ren, 0, 255, 100, 255);
 		while (running) {
-			while (SDL_PollEvent(&e)) {
-				switch (e.type) {
+			while (SDL_PollEvent(&e))
+			{
+				switch (e.type)
+				{
 				case SDL_QUIT:
 					running = false;
 					break;
 				case SDL_KEYDOWN:
-					switch (e.key.keysym.scancode) {
+					switch (e.key.keysym.scancode)
+					{
+					case SDL_SCANCODE_R:
+						joc.giraFigura(GIR_HORARI);
+						break;
+					case SDL_SCANCODE_E:
+						joc.giraFigura(GIR_ANTI_HORARI);
+						break;
+					case SDL_SCANCODE_S:
+						joc.baixaFigura();
+						break;
+					case SDL_SCANCODE_W:
+						joc.mouFigura2(0, -1);
+						break;
+					case SDL_SCANCODE_A:
+						joc.mouFigura2(-1, 0);
+						break;
 					case SDL_SCANCODE_D:
-						joc.mouFigura(1,0);
+						joc.mouFigura2(1, 0);
 						break;
 					}
+					break;
 				}
 			}
 			SDL_SetRenderDrawColor(ren, 0, 255, 100, 255);
@@ -899,14 +935,39 @@ int main() {
 						rect.y = y * 64;
 						rect.w = 64;
 						rect.h = 64;
-						SDL_SetRenderDrawColor(ren, 0, 0, 255, 255);
+						SDL_Color col = paletteToRGB(color);
+						SDL_SetRenderDrawColor(ren, col.r, col.g,
+							col.b, col.a);
 						SDL_RenderFillRect(ren, &rect);
 
 
 					}
 				}
 			}
+			for (int y = 0; y < joc.getFigura()->getSize(); y++)
+			{
+				for (int x = 0; x < joc.getFigura()->getSize(); x++)
+				{
+					const int color =
+						joc.getFigura()->getPixel(x, y);
+					if (color != COLOR_NEGRE)
+					{
+						SDL_Rect rect;
+						rect.x = (joc.getFigura()->getX() + x) * 64;
+						rect.y = (joc.getFigura()->getY() + y) * 64;
+						rect.w = 64;
+						rect.h = 64;
 
+						SDL_Color col = paletteToRGB(color);
+						SDL_SetRenderDrawColor(ren, col.r,
+							col.g, col.b
+							,
+							col.a);
+						SDL_RenderFillRect(ren, &rect);
+
+					}
+				}
+			}
 
 			SDL_RenderPresent(ren);
 		}

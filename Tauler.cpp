@@ -26,25 +26,25 @@ void Tauler::setTaula(int taula[MAX_FILA][MAX_COL])
 void Tauler::fila_a_eliminar()
 {
 	bool trobat = false;
-	int i = MAX_FILA - 1,j = 0;
-	while (!trobat&&i>0)
+	int i = 0,j = 0;
+	while (!trobat&&i<MAX_FILA)
 	{
-		while (m_taula[i][j]!=0)
+		while (m_taula[j][i]!=COLOR_NEGRE)
 		{
 			j++;
 			if (j==MAX_COL)
 			{	
 				m_filesFet++;
 				trobat = true;
-				eliminar_fila(i,j);
+				eliminar_fila(i);
 			}
 		}
-		i--;
+		i++;
 	}
 	
 }
 
-void Tauler::eliminar_fila(int x,int y)//X=fila Y=col
+void Tauler::eliminar_fila(int x)//X=fila Y=col
 {
 	//eliminar
 	for (int i = 0; i < MAX_COL; i++)
@@ -62,16 +62,15 @@ void Tauler::eliminar_fila(int x,int y)//X=fila Y=col
 		}
 	}
 	//comprovar de nou
-	m_filesFet++;
 	fila_a_eliminar();
 
 }
 
 std::ifstream& operator>>(std::ifstream& is, Tauler& tauler) {
 
-	for (int i = 0; i < MAX_FILA; ++i)
+	for (int i = 0; i < MAX_FILA; i++)
 	{
-		for (int j = 0; j < MAX_COL; ++j)
+		for (int j = 0; j < MAX_COL; j++)
 		{
 			is >> tauler.m_taula[i][j];
 		}

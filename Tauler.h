@@ -21,7 +21,7 @@ private:
 	int m_filesFet=0;
 
 	
-	void eliminar_fila(int x,int y);
+	void eliminar_fila(int x);
 	
 };
 #endif

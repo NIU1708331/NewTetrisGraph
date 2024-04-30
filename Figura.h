@@ -38,9 +38,18 @@ typedef enum
 
 namespace FiguraMatrices 
 {
-    const int FIGURA_O[2][2] = {
-        {1,1},
-        {1,1}
+    const int NO_FIGURA[4][4] = {
+        {0,0,0,0},
+        {0,0,0,0},
+        {0,0,0,0},
+        {0,0,0,0}
+    };
+
+    const int FIGURA_O[4][4] = {
+        {0,0,0,0},
+        {0,1,1,0},
+        {0,1,1,0},
+        {0,0,0,0}
     };
     const int FIGURA_I[4][4] = {
         {0,0,0,0},
@@ -48,32 +57,50 @@ namespace FiguraMatrices
         {0,0,0,0},
         {0,0,0,0}
     };
-    const int FIGURA_T[3][3] = {
-        {0,3,0},
-        {3,3,3},
-        {0,0,0}
+    const int FIGURA_T[4][4] = {
+        {0,3,0,0},
+        {3,3,3,0},
+        {0,0,0,0},
+        {0,0,0,0}
     };
-    const int FIGURA_L[3][3] = {
-        {0,0,4},
-        {4,4,4},
-        {0,0,0}
+    const int FIGURA_L[4][4] = {
+        {0,0,4,0},
+        {4,4,4,0},
+        {0,0,0,0},
+        {0,0,0,0}
     };
-    const int FIGURA_J[3][3] = {
-        {5,0,0},
-        {5,5,5},
-        {0,0,0}
+    const int FIGURA_J[4][4] = {
+        {5,0,0,0},
+        {5,5,5,0},
+        {0,0,0,0},
+        {0,0,0,0}
     };
-    const int FIGURA_Z[3][3] = {
-        {6,6,0},
-        {0,6,6},
-        {0,0,0}
+    const int FIGURA_Z[4][4] = {
+        {6,6,0,0},
+        {0,6,6,0},
+        {0,0,0,0},
+        {0,0,0,0}
     };
-    const int FIGURA_S[3][3] = {
-        {0,7,7},
-        {7,7,0},
-        {0,0,0}
+    const int FIGURA_S[4][4] = {
+        {0,7,7,0},
+        {7,7,0,0},
+        {0,0,0,0},
+        {0,0,0,0}
     };
 }
+
+
+inline const int(*matriuFigures[8])[4][4] = {
+    &FiguraMatrices::NO_FIGURA,
+    &FiguraMatrices::FIGURA_O,
+    &FiguraMatrices::FIGURA_I,
+    &FiguraMatrices::FIGURA_T,
+    &FiguraMatrices::FIGURA_L,
+    &FiguraMatrices::FIGURA_J,
+    &FiguraMatrices::FIGURA_Z,
+    &FiguraMatrices::FIGURA_S,
+};
+
 
 class Figura
 {
@@ -81,17 +108,18 @@ public:
     void girar_figura(DireccioGir gir);
     void mov_figura(int dirX, int dirY);
     bool gir_legal(DireccioGir gir,Tauler* tauler);
-    bool mov_legal(int dirX, Tauler* tauler);
+    bool mov_legal(int dirX, Tauler* taulaer);
     bool baixar(int dirY, Tauler* tauler);
-
     int getPixel(int x, int y) { return m_figura[x][y]; }
-    void setFigura(int figura[MAX_AMPLADA][MAX_ALCADA]);
+    void setFigura(const int figura[MAX_AMPLADA][MAX_ALCADA]);
     void setDir(int dir) { m_dir = dir; }
     void setPosicio(int x, int y) { m_x = x; m_y = y; }
     void setTipus(TipusFigura type) { m_type = type; }
     
-
-
+    TipusFigura gettype() { return m_type; }
+    int getX() { return m_x; }
+    int getY() { return m_y; }
+    int getSize() { return max_alcada; }
 
 private:
     void getMax();
