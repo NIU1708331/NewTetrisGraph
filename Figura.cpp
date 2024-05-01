@@ -189,7 +189,7 @@ bool Figura::baixar(int dirY, Tauler* taula)
 	for (int i = 0; i < max_amplada; i++)
 	{
 
-		if ((m_y >= MAX_FILA) && m_figura[i][MAX_FILA-m_y-1] != COLOR_NEGRE)
+		if ((m_y + max_alcada>= MAX_FILA) && m_figura[i][MAX_FILA-m_y-1] != COLOR_NEGRE)
 		{
 			resultat = false;
 		}

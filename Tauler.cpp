@@ -46,7 +46,6 @@ void Tauler::fila_a_eliminar()
 		}
 		if (isFull)
 		{
-			std::cout << "yes";
 			eliminaYDesplaza(y);
 			m_filesFet++;
 		}
@@ -66,7 +65,6 @@ void Tauler::eliminaYDesplaza(int y)
 		{
 			m_taula[nY][x] = m_taula[nY-1][x];
 		}
-		std::cout << endl;
 	}
 
 	for (int i = 0; i < MAX_COL; i++)
