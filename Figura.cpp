@@ -11,8 +11,16 @@ void Figura::getMax()
 	}
 	else
 	{
-		max_alcada = 3;
-		max_amplada = 3;
+		if (m_type==FIGURA_O)
+		{
+			max_alcada = 2;
+			max_amplada = 2;
+		}
+		else
+		{
+			max_alcada = 3;
+			max_amplada = 3;
+		}
 	}
 }
 
@@ -22,7 +30,7 @@ void Figura::setFigura(const int figura[MAX_AMPLADA][MAX_ALCADA])
 	{
 		for (int j = 0; j < MAX_ALCADA; j++)
 		{
-			m_figura[i][j] = figura[i][j];
+			m_figura[j][i] = figura[i][j];
 		}
 	}
 }
@@ -116,6 +124,7 @@ bool Figura::gir_legal(DireccioGir gir, Tauler* tauler)
 
 bool Figura::mov_legal(int dirX, Tauler* tauler)
 {
+	getMax();
 	bool resultat = true;
 
 	for (int i = 0; i < max_amplada; i++)
@@ -148,7 +157,7 @@ bool Figura::mov_legal(int dirX, Tauler* tauler)
 		for (int i = 0; i < max_alcada; i++)
 		{
 
-			if ((m_x <= 0) && m_figura[m_x-0][i] != COLOR_NEGRE)
+			if ((m_x < 0) && m_figura[m_x-0+1][i] != COLOR_NEGRE)
 			{
 				resultat = false;
 			}
@@ -176,5 +185,15 @@ bool Figura::baixar(int dirY, Tauler* taula)
 		}
 
 	}
+
+	for (int i = 0; i < max_amplada; i++)
+	{
+
+		if ((m_y >= MAX_FILA) && m_figura[i][MAX_FILA-m_y-1] != COLOR_NEGRE)
+		{
+			resultat = false;
+		}
+	}
+
 	return resultat;
 }

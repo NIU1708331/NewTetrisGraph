@@ -46,9 +46,9 @@ namespace FiguraMatrices
     };
 
     const int FIGURA_O[4][4] = {
+        {1,1,0,0},
+        {1,1,0,0},
         {0,0,0,0},
-        {0,1,1,0},
-        {0,1,1,0},
         {0,0,0,0}
     };
     const int FIGURA_I[4][4] = {
@@ -115,14 +115,14 @@ public:
     void setDir(int dir) { m_dir = dir; }
     void setPosicio(int x, int y) { m_x = x; m_y = y; }
     void setTipus(TipusFigura type) { m_type = type; }
-    
+    void getMax();
     TipusFigura gettype() { return m_type; }
     int getX() { return m_x; }
     int getY() { return m_y; }
     int getSize() { return max_alcada; }
 
 private:
-    void getMax();
+    
     int m_figura[MAX_AMPLADA][MAX_ALCADA];
     TipusFigura m_type;
     int m_dir;

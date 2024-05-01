@@ -857,7 +857,7 @@ SDL_Color PALETTE[9] = {
 inline SDL_Color paletteToRGB(int color) { return PALETTE[color]; }
 
 int main() {
-	bool testMode = false;
+	bool testMode =0;
 	if (testMode)
 	{
 		test_main();
@@ -870,7 +870,7 @@ int main() {
 		SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_PRESENTVSYNC);
 		Joc joc;
 
-		joc.inicialitza("./data/test_elimina_files_2.txt");
+		joc.inicialitza("./data/test_elimina_files_7.txt");
 
 		SDL_Event e;
 		bool running = true;
@@ -886,6 +886,9 @@ int main() {
 				case SDL_KEYDOWN:
 					switch (e.key.keysym.scancode)
 					{
+					case SDL_SCANCODE_SPACE:
+						joc.escriuTauler("test.txt");
+						break;
 					case SDL_SCANCODE_R:
 						joc.giraFigura(GIR_HORARI);
 						break;

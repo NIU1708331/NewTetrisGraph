@@ -18,12 +18,16 @@ public:
 	void fila_a_eliminar();
 	void desatFigura(Figura figura);
 	void iniFilesFetes() { m_filesFet = 0; }
+
+	void NEW_fila_a_eliminar();
+
 private:
 	int m_taula[MAX_FILA][MAX_COL];
 	int m_filesFet=0;
 
 	
 	void eliminar_fila(int x);
+	void eliminaYDesplaza(int y);
 	
 };
 #endif
