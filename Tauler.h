@@ -16,6 +16,8 @@ public:
 	void setTaula(int taula[MAX_FILA][MAX_COL]);
 	friend std::ifstream& operator>>(std::ifstream& is, Tauler& tauler);
 	void fila_a_eliminar();
+	void desatFigura(Figura figura);
+	void iniFilesFetes() { m_filesFet = 0; }
 private:
 	int m_taula[MAX_FILA][MAX_COL];
 	int m_filesFet=0;

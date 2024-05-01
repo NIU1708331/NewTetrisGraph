@@ -59,7 +59,11 @@ int Joc::baixaFigura()
 {
     if(!m_figura.baixar(1 ,&m_tauler))
     {
+        m_tauler.desatFigura(m_figura);
+        //m_figura.setFigura(*matriuFigures[0]);
+        m_tauler.iniFilesFetes();
         m_tauler.fila_a_eliminar();
+        cout << "Eliminar";
     }
     else
     {
